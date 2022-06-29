@@ -25,10 +25,13 @@ while i <=w:
     time.sleep(1)
     i+=1
 
-if result is not None:
-    with open(result, 'w') as f:
-        f.write('Create a new text file!')
-else:
-    print(f'Environment variable RESULT is not set')
+if result is None:
+    result="/tekton/results/exists"
 
+if w <= 5:
+    with open(result, 'w') as f:
+        f.write('no')
+else:
+    with open(result, 'w') as f:
+        f.write('yes')
 
