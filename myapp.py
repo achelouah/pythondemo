@@ -6,16 +6,16 @@ logfile=os.environ.get('LOGFILE')
 result=os.environ.get('RESULT')
 wait=os.environ.get('WAIT')
 
-if logfile is not None:
-    logging.basicConfig(format='%(asctime)s %(message)s', filename=logfile, encoding='utf-8', level=logging.DEBUG)
-else:
+if logfile is None:
     print(f'Environment variable LOGFILE is not set')
     logging.basicConfig(format='%(asctime)s %(message)s', filename='python.log', encoding='utf-8', level=logging.DEBUG)
-
-if wait is not None:
-    w=int(wait)
 else:
+    logging.basicConfig(format='%(asctime)s %(message)s', filename=logfile, encoding='utf-8', level=logging.DEBUG)
+
+if wait is None:
     w=30
+else:
+    w=int(wait)
 
 i=1
 while i <=w:
@@ -28,7 +28,9 @@ while i <=w:
 if result is None:
     result="/tekton/results/exists"
 
-if w <= 5:
+os.makedirs(os.path.dirname(result), exist_ok=True)
+
+if w <= 10:
     with open(result, 'w') as f:
         f.write('no')
 else:
