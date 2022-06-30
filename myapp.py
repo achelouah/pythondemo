@@ -5,6 +5,7 @@ import os
 logfile=os.environ.get('LOGFILE')
 result=os.environ.get('RESULT')
 wait=os.environ.get('WAIT')
+waittreshold=os.environ.get('WAIT_TRESHOLD')
 
 if logfile is None:
     print(f'Environment variable LOGFILE is not set')
@@ -16,6 +17,12 @@ if wait is None:
     w=30
 else:
     w=int(wait)
+
+#
+if waittreshold is None:
+    wt=10
+else:
+    wt=int(waittreshold)
 
 i=1
 while i <=w:
@@ -30,7 +37,7 @@ if result is None:
 
 os.makedirs(os.path.dirname(result), exist_ok=True)
 
-if w <= 10:
+if w <= wt:
     with open(result, 'w') as f:
         f.write('no')
 else:
